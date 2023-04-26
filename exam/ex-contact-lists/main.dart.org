@@ -1,0 +1,60 @@
+import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'contact.dart.org';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Zeeker Demo',
+      theme: ThemeData(
+          primarySwatch: Colors.cyan,
+          visualDensity: VisualDensity.adaptivePlatformDensity),
+      home: const MyHomePage(),
+    );
+  }
+}
+
+class MyHomePage extends StatefulWidget {
+  const MyHomePage({super.key});
+
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+
+  List<Contact> contactList = [
+    Contact('Zeeker', '088-888-8888', 'assets/images/logo-square.png'),
+    Contact('Zeeker2', '088-888-2222', 'assets/images/warning.png'),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Zeeker Garden'),
+      ),
+      body: ListView.builder(
+        itemCount: contactList.length,
+        itemBuilder: (BuildContext context, int index) {
+          Contact contact = contactList[index];
+          return ListTile(
+            leading: Image.asset(contact.imageSource),
+            title: Text(contact.name),
+            subtitle: Text(contact.phoneNumber),
+            onTap: () {
+              launch('tel:${contact.phoneNumber}');
+            },
+          );
+        },
+      ),
+    );
+  }
+}

@@ -1,0 +1,55 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MyWidget());
+}
+
+class MyWidget extends StatelessWidget {
+  const MyWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+        theme: ThemeData(
+            brightness: Brightness.light, primaryColor: Colors.blueGrey),
+        home: const CounterArea());
+  }
+}
+
+class CounterArea extends StatefulWidget {
+  const CounterArea({super.key});
+
+  @override
+  State<CounterArea> createState() => _CounterAreaState();
+}
+
+class _CounterAreaState extends State<CounterArea> {
+  int _counter = 0;
+
+  void onCounterButtonPressed() {
+    setState(() {
+      _counter = _counter + 1;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(
+          title: const Text('Zeeker Garden'),
+        ),
+        body: Center(
+          child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+            const Text('กดปุ่มเมื่อต้องการเพิ่ม'),
+            Text(
+              '$_counter',
+              style: const TextStyle(fontSize: 60, color: Colors.blue),
+            )
+          ]),
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: onCounterButtonPressed,
+          child: const Icon(Icons.add),
+        ));
+  }
+}
